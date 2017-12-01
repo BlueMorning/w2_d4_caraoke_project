@@ -1,15 +1,15 @@
 class Booking
 
-  attr_reader :room, :start_time, :duration, :end_time, :price_to_pay, :amount_paid
+  attr_reader :room, :start_time, :duration, :end_time, :price_to_pay, :amount_paid, :guests_payment
 
-  def initialize(room, start_time, duration, array_of_guests)
-    @room         = room
-    @start_time   = start_time
-    @duration     = duration
-    @end_time     = @start_time + (duration*3600)
-    @guests       = array_of_guests
-    @price_to_pay = @room.hourly_price * @duration
-    @amount_paid  = 0
+  def initialize(room, start_time, duration, array_of_guests_payment)
+    @room           = room
+    @start_time     = start_time
+    @duration       = duration
+    @end_time       = @start_time + (duration*3600)
+    @guests_payment = array_of_guests_payment
+    @price_to_pay   = @room.hourly_price * @duration
+    @amount_paid    = 0
   end
 
   def price_to_pay
