@@ -19,7 +19,7 @@ class TestGuestPayment < Minitest::Test
     assert_equal(0, @guest_payment.amount_paid)
   end
 
-  
+
 
 
 end
