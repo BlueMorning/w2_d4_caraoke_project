@@ -17,7 +17,7 @@ class TestPlaylistManagement< Minitest::Test
     @guests_payment = [GuestPayment.new(@guest1,10), GuestPayment.new(@guest2,15), GuestPayment.new(@guest3,15)]
 
     @room    = Room.new("BlueRoom", 10, 20)
-    @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests_payment)
+    @booking = Booking.new(@room, Time.now(), 2, @guests_payment)
 
     @song1 = Song.new("One", "U2", Song::MUSIC_KIND[:POP_ROCK], 5)
     @song2 = Song.new("Don't leave me", "PINK", Song::MUSIC_KIND[:POP], 4)
@@ -41,6 +41,14 @@ class TestPlaylistManagement< Minitest::Test
   def test_is_song_available__true
     title = "One"
     assert_equal(true, @play_list_manegement.song_available?(title))
+  end
+
+  def test_is_enough_time_left__false
+    assert_equal(false, @play_list_manegement.is_enough_time_left?(121))
+  end
+
+  def test_is_enough_time_left__true
+    assert_equal(true, @play_list_manegement.is_enough_time_left?(119))
   end
 
 end
