@@ -52,9 +52,9 @@ class TestBooking < Minitest::Test
     assert_equal(25, @booking.guests_payment_total_amount)
   end
 
-  def test_guest_adding_payment
+  def test_guest_do_payment
     previous_balance = @booking.payment_balance
-    @booking.guest_adding_payment(@guest2, 5)
+    @booking.guest_do_payment(@guest2, 5)
     assert_equal(previous_balance-5, @booking.payment_balance)
   end
 

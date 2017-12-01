@@ -23,11 +23,11 @@ class Booking
     return @guests_payment.map{|guest_payment| guest_payment.amount_paid}.reduce{|total, amount_paid| total+amount_paid}
   end
 
-  def guest_adding_payment(guest, new_payment)
+  def guest_do_payment(guest, new_payment)
     return false if new_payment > payment_balance
     return false if guest.credit < new_payment
     guest_payment = @guests_payment.find{|guest_payment| guest_payment.guest == guest}
-    guest_payment.add_payment(new_payment)
+    guest_payment.do_payment(new_payment)
     return true
   end
 
