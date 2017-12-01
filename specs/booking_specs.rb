@@ -30,4 +30,8 @@ class TestBooking < Minitest::Test
     assert_equal(2, @booking.duration)
   end
 
+  def test_get_booking_end_time
+    assert_equal(Time.new(2017,12,1,23,00,00), @booking.end_time)
+  end
+
 end
