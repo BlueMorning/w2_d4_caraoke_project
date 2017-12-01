@@ -8,5 +8,6 @@ class Room
     @hourly_price   = hourly_price
   end
 
+  
 
 end
