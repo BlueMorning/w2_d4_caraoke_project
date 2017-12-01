@@ -9,7 +9,6 @@ class Booking
     @end_time       = @start_time + (duration*3600)
     @guests_payment = array_of_guests_with_payment
     @price_to_pay   = @room.hourly_price * @duration
-    @amount_paid    = 0
   end
 
   def price_to_pay
@@ -25,8 +24,11 @@ class Booking
   end
 
   def guest_adding_payment(guest, new_payment)
+    return false if new_payment > payment_balance
+    return false if guest.credit < new_payment
     guest_payment = @guests_payment.find{|guest_payment| guest_payment.guest == guest}
     guest_payment.add_payment(new_payment)
+    return true
   end
 
   def get_nb_places_available()

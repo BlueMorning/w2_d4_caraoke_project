@@ -8,7 +8,9 @@ class Guest
     @favourite_song = favourite_song
   end
 
-
+  def decrease_credit(amount_paid)
+    @credit -= amount_paid
+  end
 
 
 

@@ -12,6 +12,7 @@ class GuestPayment
 
   def add_payment(new_payment)
     @amount_paid += new_payment
+    guest.decrease_credit(new_payment)
   end
 
 end

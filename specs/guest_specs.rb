@@ -19,4 +19,9 @@ class TestGuest < Minitest::Test
     assert_nil(@guest.favourite_song)
   end
 
+  def test_decrease_credit
+    @guest.decrease_credit(99)
+    assert_equal(1, @guest.credit)
+  end
+
 end
