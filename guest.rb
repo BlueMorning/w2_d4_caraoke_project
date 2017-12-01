@@ -1,6 +1,6 @@
 class Guest
 
-  attr_reader :name
+  attr_reader :name, :credit
 
   def initialize(name, credit, favourite_song = nil)
     @name           = name

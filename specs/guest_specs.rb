@@ -11,4 +11,8 @@ class TestGuest < Minitest::Test
     assert_equal("Bruce", @guest.name)
   end
 
+  def test_get_guest_credit
+    assert_equal(100, @guest.credit)
+  end
+
 end
