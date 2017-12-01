@@ -38,4 +38,8 @@ class TestBooking < Minitest::Test
     assert_equal(40, @booking.price_to_pay)
   end
 
+  def test_get_booking_amount_paid
+    assert_equal(0, @booking.amount_paid)
+  end
+
 end
