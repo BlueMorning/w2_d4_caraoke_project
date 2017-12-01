@@ -10,5 +10,8 @@ class Booking
     @guests       = array_of_guests
   end
 
+  def price_to_pay
+    return (@room.hourly_price * @duration)
+  end
 
 end

@@ -13,7 +13,7 @@ class TestBooking < Minitest::Test
     @guest3   = Guest.new("Vince", 60)
     @guests   = [@guest1, @guest2, @guest3]
 
-    @room    = Room.new("BlueRoom", 10)
+    @room    = Room.new("BlueRoom", 10, 20)
     @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests)
   end
 
@@ -32,6 +32,10 @@ class TestBooking < Minitest::Test
 
   def test_get_booking_end_time
     assert_equal(Time.new(2017,12,1,23,00,00), @booking.end_time)
+  end
+
+  def test_get_booking_price_to_pay
+    assert_equal(40, @booking.price_to_pay)
   end
 
 end
