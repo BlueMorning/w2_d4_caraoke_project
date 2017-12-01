@@ -15,4 +15,8 @@ class TestGuest < Minitest::Test
     assert_equal(100, @guest.credit)
   end
 
+  def test_get_guest_favourite_song__nil
+    assert_nil(@guest.favourite_song)
+  end
+
 end
