@@ -21,6 +21,7 @@ class TestPlaylistManagement< Minitest::Test
 
     @song1 = Song.new("One", "U2", Song::MUSIC_KIND[:POP_ROCK], 5)
     @song2 = Song.new("Don't leave me", "PINK", Song::MUSIC_KIND[:POP], 4)
+    @song3 = Song.new("Stairway to heaven", "Led Zep", Song::MUSIC_KIND[:ROCK], 121)
     @songs_catalog = [@song1, @song2]
     @play_list_manegement = PlayListManagement.new(@booking, @songs_catalog)
 
@@ -49,6 +50,18 @@ class TestPlaylistManagement< Minitest::Test
 
   def test_is_enough_time_left__true
     assert_equal(true, @play_list_manegement.is_enough_time_left?(119))
+  end
+
+  def test_control_adding_new_song__false
+    nb_songs = @play_list_manegement.play_list.count()
+    @play_list_manegement.control_adding_new_song(@song3)
+    assert_equal(nb_songs, @play_list_manegement.play_list.count())
+  end
+
+  def test_control_adding_new_song__true
+    nb_songs = @play_list_manegement.play_list.count()
+    @play_list_manegement.control_adding_new_song(@song1)
+    assert_equal(nb_songs+1, @play_list_manegement.play_list.count())
   end
 
 end

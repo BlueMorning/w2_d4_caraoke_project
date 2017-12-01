@@ -22,4 +22,11 @@ class PlayListManagement
     return song_duration <= (@booking.end_time - Time.now())/60
   end
 
+  def control_adding_new_song(song)
+    return false if ! song_available?(song.title)
+    return false if ! is_enough_time_left?(song.duration)
+    add_song_to_play_list(song)
+    return true
+  end
+
 end
