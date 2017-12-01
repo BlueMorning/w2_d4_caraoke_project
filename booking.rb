@@ -1,6 +1,6 @@
 class Booking
 
-  attr_reader :room, :start_time
+  attr_reader :room, :start_time, :duration
 
   def initialize(room, start_time, duration, array_of_guests)
     @room         = room
