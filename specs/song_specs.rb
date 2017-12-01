@@ -20,4 +20,9 @@ class TestSong < Minitest::Test
     assert_equal(Song::MUSIC_KIND[:POP_ROCK], @song.music_kind)
   end
 
+  def test_get_song_duration
+    assert_equal(5, @song.duration)
+  end
+
+
 end
