@@ -14,6 +14,9 @@ class PlayListManagement
     @play_list.push(song)
   end
 
+  def song_available?(title)
+    return @songs_catalog.find{|song| song.title == title} != nil
+  end
 
 
 end

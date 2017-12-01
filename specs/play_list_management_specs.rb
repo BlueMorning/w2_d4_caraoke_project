@@ -33,5 +33,14 @@ class TestPlaylistManagement< Minitest::Test
     assert_equal(nb_songs+1, @play_list_manegement.play_list.count())
   end
 
+  def test_is_song_available__false
+    title = "With or without you"
+    assert_equal(false, @play_list_manegement.song_available?(title))
+  end
+
+  def test_is_song_available__true
+    title = "One"
+    assert_equal(true, @play_list_manegement.song_available?(title))
+  end
 
 end
