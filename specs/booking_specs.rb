@@ -16,7 +16,6 @@ class TestBooking < Minitest::Test
 
     @room    = Room.new("BlueRoom", 5, 20)
     @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests_payment)
-    @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests_payment)
   end
 
 
@@ -34,6 +33,15 @@ class TestBooking < Minitest::Test
 
   def test_get_booking_end_time
     assert_equal(Time.new(2017,12,1,23,00,00), @booking.end_time)
+  end
+
+  def test_is_room_reserved_as_private__true
+    @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests_payment, true)
+    assert_equal(true, @booking.room_booked_as_private?())
+  end
+
+  def test_is_room_reserved_as_private__false
+    assert_equal(false, @booking.room_booked_as_private?())
   end
 
   def test_get_booking_price_to_pay

@@ -1,14 +1,15 @@
 class Booking
 
-  attr_reader :room, :start_time, :duration, :end_time, :price_to_pay, :amount_paid, :guests_payment
+  attr_reader :room, :start_time, :duration, :end_time, :price_to_pay, :amount_paid, :guests_payment, :private_room
 
-  def initialize(room, start_time, duration, array_of_guests_with_payment)
+  def initialize(room, start_time, duration, array_of_guests_with_payment, is_private_room = false)
     @room           = room
     @start_time     = start_time
     @duration       = duration
     @end_time       = @start_time + (duration*3600)
     @guests_payment = array_of_guests_with_payment
     @price_to_pay   = @room.hourly_price * @duration
+    @private_room   = is_private_room
   end
 
   def price_to_pay
@@ -39,6 +40,10 @@ class Booking
     return false if get_nb_places_available() == 0
     @guests_payment.push(guest_with_payment)
     return true
+  end
+
+  def room_booked_as_private?()
+    return @private_room
   end
 
 end
