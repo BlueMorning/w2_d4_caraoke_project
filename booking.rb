@@ -24,4 +24,8 @@ class Booking
     return (@price_to_pay - @amount_paid)
   end
 
+  def guests_payment_total_amount
+    return @guests_payment.map{|guest_payment| guest_payment.amount_paid}.reduce{|total, amount_paid| total+amount_paid}
+  end
+
 end
