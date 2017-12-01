@@ -16,6 +16,7 @@ class TestBooking < Minitest::Test
 
     @room    = Room.new("BlueRoom", 10, 20)
     @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests_payment)
+    @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests_payment)
   end
 
 
@@ -55,6 +56,14 @@ class TestBooking < Minitest::Test
     previous_balance = @booking.payment_balance
     @booking.guest_adding_payment(@guest2, 5)
     assert_equal(previous_balance-5, @booking.payment_balance)
+  end
+
+  def test_get_nb_places_available__places_available
+    assert_equal(7, @booking.get_nb_places_available())
+  end
+
+  def test_are_places_available__no_places_available
+    assert_equal(0, @booking.get_nb_places_available())
   end
 
 end
