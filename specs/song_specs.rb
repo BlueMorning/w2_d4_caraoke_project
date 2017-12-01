@@ -16,4 +16,8 @@ class TestSong < Minitest::Test
     assert_equal("U2", @song.group)
   end
 
+  def test_get_song_music_kind
+    assert_equal(Song::MUSIC_KIND[:POP_ROCK], @song.music_kind)
+  end
+
 end
