@@ -20,4 +20,8 @@ class Booking
     return @amount_paid
   end
 
+  def payment_balance
+    return (@price_to_pay - @amount_paid)
+  end
+
 end
