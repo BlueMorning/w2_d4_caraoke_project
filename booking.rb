@@ -16,12 +16,8 @@ class Booking
     return @price_to_pay
   end
 
-  def amount_paid
-    return @amount_paid
-  end
-
   def payment_balance
-    return (@price_to_pay - @amount_paid)
+    return @price_to_pay - guests_payment_total_amount()
   end
 
   def guests_payment_total_amount
