@@ -33,4 +33,10 @@ class Booking
     return @room.capacity - @guests_payment.count()
   end
 
+  def add_new_guest_with_payment(guest_with_payment)
+    return false if get_nb_places_available() == 0
+    @guests_payment.push(guest_with_payment)
+    return true
+  end
+
 end

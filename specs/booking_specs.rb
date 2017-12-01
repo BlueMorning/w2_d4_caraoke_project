@@ -14,7 +14,7 @@ class TestBooking < Minitest::Test
     @guest3   = Guest.new("Vince", 60)
     @guests_payment = [GuestPayment.new(@guest1,10), GuestPayment.new(@guest2), GuestPayment.new(@guest3,15)]
 
-    @room    = Room.new("BlueRoom", 10, 20)
+    @room    = Room.new("BlueRoom", 5, 20)
     @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests_payment)
     @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests_payment)
   end
@@ -58,12 +58,43 @@ class TestBooking < Minitest::Test
     assert_equal(previous_balance-5, @booking.payment_balance)
   end
 
+  def test_add_new_guest
+    @guest4   = Guest.new("Max", 70)
+    @booking.add_new_guest_with_payment(GuestPayment.new(@guest4,10))
+    assert_equal(1, @booking.get_nb_places_available())
+    assert_equal(35, @booking.guests_payment_total_amount())
+  end
+
   def test_get_nb_places_available__places_available
-    assert_equal(7, @booking.get_nb_places_available())
+    @guest4   = Guest.new("Max", 70)
+    @guest5   = Guest.new("Harry", 70)
+    @booking.add_new_guest_with_payment(GuestPayment.new(@guest4,1))
+    assert_equal(1, @booking.get_nb_places_available())
+    assert_equal(26, @booking.guests_payment_total_amount())
+    @booking.add_new_guest_with_payment(GuestPayment.new(@guest5,3))
+    assert_equal(0, @booking.get_nb_places_available())
+    assert_equal(29, @booking.guests_payment_total_amount())
   end
 
   def test_are_places_available__no_places_available
+    @guest4   = Guest.new("Max", 70)
+    @guest5   = Guest.new("Harry", 70)
+    @guest6   = Guest.new("Jessica", 70)
+
+    @booking.add_new_guest_with_payment(GuestPayment.new(@guest4,1))
+    assert_equal(1, @booking.get_nb_places_available())
+    assert_equal(26, @booking.guests_payment_total_amount())
+
+    @booking.add_new_guest_with_payment(GuestPayment.new(@guest5,3))
     assert_equal(0, @booking.get_nb_places_available())
+    assert_equal(29, @booking.guests_payment_total_amount())
+
+    # No place are available for any further guest, he won't be add
+    @booking.add_new_guest_with_payment(GuestPayment.new(@guest6,40))
+    assert_equal(0, @booking.get_nb_places_available())
+    assert_equal(29, @booking.guests_payment_total_amount())
   end
+
+
 
 end
