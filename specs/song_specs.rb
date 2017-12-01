@@ -12,5 +12,8 @@ class TestSong < Minitest::Test
     assert_equal("One",@song.title)
   end
 
+  def test_get_song_group
+    assert_equal("U2", @song.group)
+  end
 
 end
