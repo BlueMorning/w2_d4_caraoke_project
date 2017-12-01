@@ -14,12 +14,16 @@ class TestBooking < Minitest::Test
     @guests   = [@guest1, @guest2, @guest3]
 
     @room    = Room.new("BlueRoom", 10)
-    @booking = Booking.new(@room, Time.new().strftime("2017-12-1 21:00:00"), 2, @guests)
+    @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests)
   end
 
 
   def test_get_booking_room
     assert_equal(@room, @booking.room)
+  end
+
+  def test_get_booking_start_time
+    assert_equal(Time.new(2017,12,1,21,00,00), @booking.start_time)
   end
 
 
