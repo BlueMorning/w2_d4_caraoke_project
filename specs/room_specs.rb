@@ -19,4 +19,8 @@ class TestRoom < Minitest::Test
     assert_equal(20, @room.hourly_price)
   end
 
+  def test_nb_place_available
+    assert_equal(10, @room.nb_places_available)
+  end
+
 end
