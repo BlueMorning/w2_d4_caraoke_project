@@ -18,7 +18,7 @@ class Karaoke
     return true
   end
 
-  def is_room_available?(room, start_time, duration, guests_payment)
+  def is_private_room_available?(room, start_time, duration, guests_payment)
     new_booking = Booking.new(room, start_time, duration, guests_payment)
     return false if @bookings.select{|booking|
               booking.room == new_booking.room && booking.end_time > new_booking.start_time &&
