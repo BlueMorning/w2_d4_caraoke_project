@@ -2,6 +2,7 @@ require("minitest/autorun")
 require_relative("../karaoke")
 require_relative("../booking")
 require_relative("../guest")
+require_relative("../guest_payment")
 require_relative("../booking")
 
 
@@ -29,6 +30,32 @@ class TestKaraoke < Minitest::Test
 
   def test_get_karaoke_name
     assert_equal("SingOutLoud", @karaoke.name)
+  end
+
+  def test_book_a_room__available
+    @guests_payment = [GuestPayment.new(@guest1,10), GuestPayment.new(@guest2), GuestPayment.new(@guest3,15)]
+    is_booking_ok   = @karaoke.book_a_room(@room1, Time.new(2017,12,1,21,00,00), 2, @guests_payment, false)
+    assert_equal(true, is_booking_ok)
+  end
+
+  def test_book_a_room__not_available
+    # First booking expected to end at 23:00
+    @guests_payment = [GuestPayment.new(@guest1,10), GuestPayment.new(@guest2)]
+    is_booking_ok   = @karaoke.book_a_room(@room1, Time.new(2017,12,1,21,00,00), 2, @guests_payment, false)
+    assert_equal(true, is_booking_ok)
+
+    # Second booking for the same room expected to begin at 22:59
+    @guests_payment = [GuestPayment.new(@guest3,15)]
+    is_booking_ok   = @karaoke.book_a_room(@room1, Time.new(2017,12,1,22,59,00), 2, @guests_payment, false)
+    assert_equal(false, is_booking_ok)
+  end
+
+  def test_check_in_room
+
+  end
+
+  def test_check_out_room
+
   end
 
 
