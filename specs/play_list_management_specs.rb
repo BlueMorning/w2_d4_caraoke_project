@@ -16,13 +16,13 @@ class TestPlaylistManagement< Minitest::Test
     @song3 = Song.new("Stairway to heaven", "Led Zep", Song::MUSIC_KIND[:ROCK], 121)
     @songs_catalog = [@song1, @song2]
     @play_list_manegement = PlayListManagement.new(@songs_catalog)
-
+    @guest1               = Guest.new("Bruce", 100, @song1)
 
   end
 
   def test_add_new_song_to_play_list
     nb_songs = @play_list_manegement.play_list.count()
-    @play_list_manegement.add_song_to_play_list(@song1)
+    @play_list_manegement.add_song_to_play_list(@guest1, @song1)
     assert_equal(nb_songs+1, @play_list_manegement.play_list.count())
   end
 
@@ -38,18 +38,14 @@ class TestPlaylistManagement< Minitest::Test
 
   def test_control_adding_new_song__false
     nb_songs = @play_list_manegement.play_list.count()
-    @play_list_manegement.control_adding_new_song(@song3)
+    @play_list_manegement.control_adding_new_song(@guest1, @song3)
     assert_equal(nb_songs, @play_list_manegement.play_list.count())
   end
 
   def test_control_adding_new_song__true
     nb_songs = @play_list_manegement.play_list.count()
-    @play_list_manegement.control_adding_new_song(@song1)
+    @play_list_manegement.control_adding_new_song(@guest, @song1)
     assert_equal(nb_songs+1, @play_list_manegement.play_list.count())
-  end
-
-  def test_is_favorite_song_being_played
-
   end
 
 end
