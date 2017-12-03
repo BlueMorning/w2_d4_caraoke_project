@@ -44,7 +44,7 @@ class TestPlaylistManagement< Minitest::Test
 
   def test_control_adding_new_song__true
     nb_songs = @play_list_manegement.play_list.count()
-    @play_list_manegement.control_adding_new_song(@guest, @song1)
+    @play_list_manegement.control_adding_new_song(@guest1, @song1)
     assert_equal(nb_songs+1, @play_list_manegement.play_list.count())
   end
 

@@ -14,7 +14,6 @@ class TestRoom < Minitest::Test
     @songs_catalog        = [@song1, @song2]
     @play_list_manegement = PlayListManagement.new(@songs_catalog)
     @guest1               = Guest.new("Bruce", 100, @song1)
-
   end
 
   def test_get_room_name

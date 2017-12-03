@@ -1,3 +1,5 @@
+require_relative("play_list_management.rb")
+
 class Room
 
   attr_reader :name, :capacity, :hourly_price, :play_list_management

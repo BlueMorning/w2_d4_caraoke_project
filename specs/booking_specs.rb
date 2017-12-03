@@ -54,11 +54,11 @@ class TestBooking < Minitest::Test
   end
 
   def test_get_booking_price_to_pay
-    assert_equal(40, @booking.price_to_pay)
+    assert_equal(120, @booking.price_to_pay)
   end
 
   def test_get_booking_payment_balance
-    assert_equal(15, @booking.payment_balance)
+    assert_equal(95, @booking.payment_balance)
   end
 
   def test_get_guests_payment

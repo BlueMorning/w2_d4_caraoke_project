@@ -15,7 +15,7 @@ class Booking
 
 
   def price_to_pay
-    return ((@end_time - @start_time)/3600)*@room.hourly_price
+    return ((@end_time - @start_time)/3600)*@room.hourly_price*@guests_payment.count()
   end
 
   def payment_balance
