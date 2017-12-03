@@ -104,9 +104,10 @@ class TestKaraoke < Minitest::Test
   end
 
   def test_calculate_turnover_by_room
+    #Room4 turnover = 20
     @guests_payment_1 = [GuestPayment.new(@guest1,20), GuestPayment.new(@guest2)]
     @karaoke.book_a_private_room(@room4, Time.new(2017,12,1,21,00,00), 2, @guests_payment_1)
-
+    #Room4 turnover = 20 + 100
     @guests_payment_2 = [GuestPayment.new(@guest3,70), GuestPayment.new(@guest4,30)]
     @karaoke.book_a_private_room(@room4, Time.new(2017,12,1,23,01,00), 10, @guests_payment_2)
 
