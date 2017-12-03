@@ -1,6 +1,6 @@
 class Booking
 
-  attr_reader :room, :start_time, :duration, :end_time, :price_to_pay, :amount_paid, :guests_payment, :private_room, :check_out
+  attr_reader :room, :start_time, :duration, :end_time, :price_to_pay, :amount_paid, :guests_payment, :is_private_room, :check_out
 
   def initialize(room, start_time, duration, array_of_guests_with_payment, is_private_room = false)
     @room             = room

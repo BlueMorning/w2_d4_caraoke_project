@@ -3,7 +3,7 @@ require_relative("room")
 
 class Karaoke
 
-  attr_reader :name
+  attr_reader :name, :bookings
 
   def initialize(name, rooms)
     @name     = name
@@ -42,24 +42,21 @@ class Karaoke
 
     return false if @bookings.select{|booking|
               booking.is_private_room &&
+              booking.room == new_booking.room &&
               (
-                ( booking.room == new_booking.room && booking.end_time > new_booking.start_time &&
-                  booking.end_time < new_booking.end_time) ||
-                ( booking.room == new_booking.room && booking.start_time > new_booking.start_time &&
-                  booking.start_time < new_booking.end_time)
+                (new_booking.start_time > booking.start_time && new_booking.start_time < booking.end_time) ||
+                (new_booking.end_time   > booking.start_time && new_booking.end_time   < booking.end_time)
               )
             }.count() > 0
 
-
     bookings_free_room = @bookings.select{|booking|
-            ! booking.is_private_room &&
-            (
-              ( booking.room == new_booking.room && booking.end_time > new_booking.start_time &&
-                booking.end_time < new_booking.end_time) ||
-              ( booking.room == new_booking.room && booking.start_time > new_booking.start_time &&
-                booking.start_time < new_booking.end_time)
-            )
-          }
+              ! booking.is_private_room &&
+              booking.room == new_booking.room &&
+              (
+                (new_booking.start_time > booking.start_time && new_booking.start_time < booking.end_time) ||
+                (new_booking.end_time   > booking.start_time && new_booking.end_time   < booking.end_time)
+              )
+            }
 
     nb_places_booked = 0
     bookings_free_room.each do |booking|
