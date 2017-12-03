@@ -70,16 +70,16 @@ class Karaoke
   end
 
   def check_in_free_room(room, minimum_duration, guests)
-    return false if ! is_a_free_room_available(room, minimum_duration, guests)
+    return nil if ! is_a_free_room_available(room, minimum_duration, guests)
 
     new_booking = Booking.new(room, Time.now, minimum_duration, guests.map{|guest| GuestPayment.new(guest, 0)})
     @bookings.push(new_booking)
 
-    return true
+    return new_booking
   end
 
-  def check_out_free_room(room, guests)
-
+  def check_out_free_room(booking)
+    booking.check_out_free_room()
   end
 
 

@@ -57,6 +57,8 @@ class Booking
     end
 
     @check_out        = true
+
+    return @check_out
   end
 
 end

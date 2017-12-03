@@ -68,9 +68,8 @@ class TestKaraoke < Minitest::Test
     assert_equal(true, @karaoke.is_a_free_room_available(@room2, 1, [@guest2]))
     @karaoke.check_in_free_room(@room2, 1, [@guest2])
 
-    # Room2 is now full, the new enquiry result is false : not available.
+    #Room2 is now full, the new enquiry result is false : not available.
     assert_equal(false, @karaoke.is_a_free_room_available(@room2, 1, [@guest3]))
-
 
     #Second part : Room4 has a capacity of 8
     assert_equal(true, @karaoke.is_a_free_room_available(@room4, 1, [@guest3]))
@@ -86,11 +85,22 @@ class TestKaraoke < Minitest::Test
   end
 
   def test_check_in_free_room
-    assert_equal(true, @karaoke.check_in_free_room(@room1, 1, [@guest1]))
+    nb_bookings = @karaoke.bookings.count()
+    @karaoke.check_in_free_room(@room1, 1, [@guest1])
+    assert_equal(nb_bookings+1, @karaoke.bookings.count())
   end
 
   def test_check_out_free_room
+    new_booking = @karaoke.check_in_free_room(@room2, 1, [@guest1, @guest2])
 
+    assert_equal(false, @karaoke.is_a_free_room_available(@room2, 1, [@guest3]))
+
+    @karaoke.check_out_free_room(new_booking)
+
+    assert_equal(true, new_booking.check_out)
+    assert_equal(0,    new_booking.payment_balance)
+
+    assert_equal(true, @karaoke.is_a_free_room_available(@room2, 1, [@guest3]))
   end
 
 
