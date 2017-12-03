@@ -11,10 +11,10 @@ class Karaoke
     @bookings = []
   end
 
-  def book_a_room(room, start_time, duration, guests_payment, is_private)
+  def book_a_private_room(room, start_time, duration, guests_payment)
     return false if ! is_a_private_room_available?(room, start_time, duration, guests_payment)
-    booking = Booking.new(room, start_time, duration, guests_payment, is_private)
-    @bookings.push(booking)
+    new_booking = Booking.new(room, start_time, duration, guests_payment, true)
+    @bookings.push(new_booking)
     return true
   end
 
@@ -36,7 +36,7 @@ class Karaoke
 
   end
 
-  def is_a_free_room_available?(room, minimum_duration, guests)
+  def is_a_free_room_available(room, minimum_duration, guests)
 
     new_booking = Booking.new(room, Time.now, minimum_duration, guests.map{|guest| GuestPayment.new(guest, 0)})
 
@@ -54,11 +54,15 @@ class Karaoke
 
   end
 
-  def check_in_free_room(room, guests)
+  def check_in_free_room(room, minimum_duration, guests)
+    return false if ! is_a_free_room_available(room, minimum_duration, guests)
 
+    new_booking = Booking.new(room, Time.now, minimum_duration, guests.map{|guest| GuestPayment.new(guest, 0)})
+    @bookings.push(new_booking)
+    return true
   end
 
-  def check_in_free_room(room, guests)
+  def check_out_free_room(room, guests)
 
   end
 

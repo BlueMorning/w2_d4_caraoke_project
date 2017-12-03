@@ -35,28 +35,28 @@ class TestKaraoke < Minitest::Test
   def test_book_a_private_room__available
     #First booking for this room which is available
     @guests_payment = [GuestPayment.new(@guest1,10), GuestPayment.new(@guest2), GuestPayment.new(@guest3,15)]
-    is_booking_ok   = @karaoke.book_a_room(@room1, Time.new(2017,12,1,21,00,00), 2, @guests_payment, true)
+    is_booking_ok   = @karaoke.book_a_private_room(@room1, Time.new(2017,12,1,21,00,00), 2, @guests_payment)
     assert_equal(true, is_booking_ok)
   end
 
   def test_book_a_private_room__not_available
     # First booking expected to end at 23:00
     @guests_payment = [GuestPayment.new(@guest1,10), GuestPayment.new(@guest2)]
-    is_booking_ok   = @karaoke.book_a_room(@room1, Time.new(2017,12,1,21,00,00), 2, @guests_payment, true)
+    is_booking_ok   = @karaoke.book_a_private_room(@room1, Time.new(2017,12,1,21,00,00), 2, @guests_payment)
     assert_equal(true, is_booking_ok)
 
     # Second booking for the same room expected to begin at 22:59 will be refused because the previous one won't be finished
     @guests_payment = [GuestPayment.new(@guest3,15)]
-    is_booking_ok   = @karaoke.book_a_room(@room1, Time.new(2017,12,1,22,59,00), 2, @guests_payment, true)
+    is_booking_ok   = @karaoke.book_a_private_room(@room1, Time.new(2017,12,1,22,59,00), 2, @guests_payment)
     assert_equal(false, is_booking_ok)
   end
 
   def test_is_a_free_room_available?
-    assert_equal(true, @karaoke.is_a_free_room_available?(@room1, 1, [@guest1]))
+    assert_equal(true, @karaoke.is_a_free_room_available(@room1, 1, [@guest1]))
   end
 
   def test_check_in_free_room
-    #assert_equal(true, @karaoke.is_a_free_room_available?(@room1, 1, [@guest1]))
+    assert_equal(true, @karaoke.check_in_free_room(@room1, 1, [@guest1]))
   end
 
   def test_check_out_free_room

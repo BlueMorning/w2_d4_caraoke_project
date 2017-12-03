@@ -103,12 +103,4 @@ class TestBooking < Minitest::Test
     assert_equal(29, @booking.guests_payment_total_amount())
   end
 
-  def test_check_out
-    nb_places_available = @booking.get_nb_places_available()
-    @booking.check_out(@guest1)
-    assert_equal(nb_places_available+1, @booking.get_nb_places_available())
-  end
-
-
-
 end
