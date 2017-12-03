@@ -41,14 +41,32 @@ class Karaoke
     new_booking = Booking.new(room, Time.now, minimum_duration, guests.map{|guest| GuestPayment.new(guest, 0)})
 
     return false if @bookings.select{|booking|
-              booking.room == new_booking.room && booking.end_time > new_booking.start_time &&
-              booking.end_time < new_booking.end_time}.count() > 0
+              booking.is_private_room &&
+              (
+                ( booking.room == new_booking.room && booking.end_time > new_booking.start_time &&
+                  booking.end_time < new_booking.end_time) ||
+                ( booking.room == new_booking.room && booking.start_time > new_booking.start_time &&
+                  booking.start_time < new_booking.end_time)
+              )
+            }.count() > 0
 
-    return false if @bookings.select{|booking|
-              booking.room == new_booking.room && booking.start_time > new_booking.start_time &&
-              booking.start_time < new_booking.end_time}.count() > 0
 
-    return false if room.nb_places_available < guests.count()
+    bookings_free_room = @bookings.select{|booking|
+            ! booking.is_private_room &&
+            (
+              ( booking.room == new_booking.room && booking.end_time > new_booking.start_time &&
+                booking.end_time < new_booking.end_time) ||
+              ( booking.room == new_booking.room && booking.start_time > new_booking.start_time &&
+                booking.start_time < new_booking.end_time)
+            )
+          }
+
+    nb_places_booked = 0
+    bookings_free_room.each do |booking|
+      nb_places_booked += booking.guests_payment.count()
+    end
+
+    return false if room.nb_places_available < nb_places_booked + guests.count()
 
     return true
 
@@ -59,6 +77,7 @@ class Karaoke
 
     new_booking = Booking.new(room, Time.now, minimum_duration, guests.map{|guest| GuestPayment.new(guest, 0)})
     @bookings.push(new_booking)
+
     return true
   end
 

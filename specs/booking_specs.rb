@@ -35,6 +35,15 @@ class TestBooking < Minitest::Test
     assert_equal(Time.new(2017,12,1,23,00,00), @booking.end_time)
   end
 
+  def test_is_karaoke_session_ended__true
+    @booking.check_out_free_room()
+    assert_equal(true, @booking.check_out)
+  end
+
+  def test_is_karaoke_session_ended__false
+    assert_equal(false, @booking.check_out)
+  end
+
   def test_is_room_reserved_as_private__true
     @booking = Booking.new(@room, Time.new(2017,12,1,21,00,00), 2, @guests_payment, true)
     assert_equal(true, @booking.room_booked_as_private?())

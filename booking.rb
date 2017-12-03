@@ -1,23 +1,25 @@
 class Booking
 
-  attr_reader :room, :start_time, :duration, :end_time, :price_to_pay, :amount_paid, :guests_payment, :private_room
+  attr_reader :room, :start_time, :duration, :end_time, :price_to_pay, :amount_paid, :guests_payment, :private_room, :check_out
 
   def initialize(room, start_time, duration, array_of_guests_with_payment, is_private_room = false)
-    @room           = room
-    @start_time     = start_time
-    @duration       = duration
-    @end_time       = @start_time + (duration*3600)
-    @guests_payment = array_of_guests_with_payment
-    @price_to_pay   = @room.hourly_price * @duration
-    @private_room   = is_private_room
+    @room             = room
+    @start_time       = start_time
+    @duration         = duration
+    @end_time         = @start_time + (duration*3600)
+    @guests_payment   = array_of_guests_with_payment
+    @is_private_room  = is_private_room
+    @check_out        = false
   end
 
+
+
   def price_to_pay
-    return @price_to_pay
+    return ((@end_time - @start_time)/3600)*@room.hourly_price
   end
 
   def payment_balance
-    return @price_to_pay - guests_payment_total_amount()
+    return price_to_pay() - guests_payment_total_amount()
   end
 
   def guests_payment_total_amount
@@ -26,7 +28,6 @@ class Booking
 
   def guest_do_payment(guest, new_payment)
     return false if new_payment > payment_balance
-    return false if guest.credit < new_payment
     guest_payment = @guests_payment.find{|guest_payment| guest_payment.guest == guest}
     guest_payment.do_payment(new_payment)
     return true
@@ -43,7 +44,19 @@ class Booking
   end
 
   def room_booked_as_private?()
-    return @private_room
+    return @is_private_room
+  end
+
+  def check_out_free_room()
+    @end_time         = Time.now()
+    @duration         = (@end_time - @start_time)*3600
+    payment_balance   = payment_balance()
+
+    @guests_payment.each do |guest_payment|
+      guest_do_payment(guest_payment.guest, payment_balance/@guests_payment.count())
+    end
+
+    @check_out        = true
   end
 
 end

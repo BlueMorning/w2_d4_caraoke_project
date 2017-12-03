@@ -51,7 +51,7 @@ class TestKaraoke < Minitest::Test
     assert_equal(false, is_booking_ok)
   end
 
-  def test_is_a_free_room_available?
+  def test_is_a_free_room_available__true
     assert_equal(true, @karaoke.is_a_free_room_available(@room1, 1, [@guest1]))
   end
 
