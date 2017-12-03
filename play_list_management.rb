@@ -11,6 +11,7 @@ class PlayListManagement
 
   def add_song_to_play_list(guest, song)
     @play_list.push(song)
+    return "So good !" if guest.favourite_song == song
   end
 
   def song_available?(title)
